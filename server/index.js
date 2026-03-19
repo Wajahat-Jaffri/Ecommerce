@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 // routes
 app.use("/api/auth", authRoutes);
-app.use("/api/admin/product", adminProductRoutes);
+app.use("/api/admin/products", adminProductRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL)

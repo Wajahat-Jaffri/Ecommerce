@@ -46,12 +46,7 @@ export const loginFormControls = [
 ]
 
 export const addProductFormElements = [
-  {
-    name: "image",
-    label: "Product Image",
-    componentType: "file",
-    type: "file",
-  },
+
   {
     name: "title",
     label: "Title",
