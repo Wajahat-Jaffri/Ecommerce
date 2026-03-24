@@ -8,6 +8,7 @@ dotenv.config();
 
 import authRoutes from "./routes/auth/auth.routes.js";
 import adminProductRoutes from "./routes/admin/product.routes.js";
+import shopProductRoutes from "./routes/shop/product.routes.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin/products", adminProductRoutes);
+app.use("/api/shop/products", shopProductRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL)
