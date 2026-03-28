@@ -1,8 +1,11 @@
 import express from "express";
 const router = express.Router();
 
-import { filterProduct } from "../../controller/shop/product.controller.js";
+import { getFilterProduct } from "../../controller/shop/product.controller.js";
+import { getProductDetails } from "../../controller/shop/product.controller.js";
 
-router.get("/filter", filterProduct);
+router.get("/filter", getFilterProduct);
+router.get("/details/:id", getProductDetails)
+
 
 export default router;

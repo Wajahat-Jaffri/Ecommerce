@@ -124,3 +124,72 @@ const authSlice = createSlice({
 
 export const { setUser } = authSlice.actions;
 export default authSlice.reducer;
+
+
+// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
+
+// const initialState = {
+//   isAuthenticated: false,
+//   isLoading: true,
+//   user: null,
+// };
+
+// axios.defaults.withCredentials = true;
+
+// // LOGIN
+// export const loginUser = createAsyncThunk("auth/login", async (formData) => {
+//   const res = await axios.post("http://localhost:5000/api/auth/login", formData);
+//   return res.data;
+// });
+
+// // LOGOUT
+// export const logoutUser = createAsyncThunk("auth/logout", async () => {
+//   const res = await axios.post("http://localhost:5000/api/auth/logout");
+//   return res.data;
+// });
+
+// // CHECK AUTH
+// export const checkAuth = createAsyncThunk("auth/checkAuth", async () => {
+//   const res = await axios.get("http://localhost:5000/api/auth/check-auth");
+//   return res.data;
+// });
+
+// const authSlice = createSlice({
+//   name: "auth",
+//   initialState,
+//   reducers: {},
+//   extraReducers: (builder) => {
+//     builder
+//       // LOGIN
+//       .addCase(loginUser.fulfilled, (state, action) => {
+//         state.isAuthenticated = true;
+//         state.user = action.payload.user;
+//         state.isLoading = false;
+//       })
+
+//       // LOGOUT
+//       .addCase(logoutUser.fulfilled, (state) => {
+//         state.isAuthenticated = false;
+//         state.user = null;
+//         state.isLoading = false;
+//       })
+
+//       // CHECK AUTH
+//       .addCase(checkAuth.pending, (state) => {
+//         state.isLoading = true;
+//       })
+//       .addCase(checkAuth.fulfilled, (state, action) => {
+//         state.isAuthenticated = true;
+//         state.user = action.payload.user;
+//         state.isLoading = false;
+//       })
+//       .addCase(checkAuth.rejected, (state) => {
+//         state.isAuthenticated = false;
+//         state.user = null;
+//         state.isLoading = false;
+//       });
+//   },
+// });
+
+// export default authSlice.reducer;

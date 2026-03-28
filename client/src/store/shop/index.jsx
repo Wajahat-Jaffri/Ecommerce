@@ -7,15 +7,42 @@ const initialState = {
     
 };
 
-export const fetchAllFilteredProducts = createAsyncThunk("products/fetchAllProducts/filter",
-     async () => {
-    const response = await axios.get("http://localhost:5000/api/shop/products/filter",{
-        headers: { "Content-Type": "application/json" },
-        
+export const fetchAllFilteredProducts = createAsyncThunk(
+  "products/fetchAllProducts",
+  async ({ filtersParams = {}, sortParams = "price-lowtohigh" }) => {
+    const query = new URLSearchParams({
+      ...filtersParams,
+      sortBy: sortParams,
     });
-    console.log(response.data);
-    return response.data;
-});
+    const result = await axios.get(
+      `http://localhost:5000/api/shop/products/filter?${query.toString()}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return result.data;
+  },
+);
+
+export const fetchProductDetails = createAsyncThunk(
+  "products/fetchProductDetails",
+  async (id) => {
+    const result = await axios.get(
+      `http://localhost:5000/api/shop/products/get/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return result.data;
+  },
+);
+
 
 const productSlice = createSlice({
     name: "product",
@@ -33,6 +60,17 @@ const productSlice = createSlice({
             state.isLoading = false;
             state.productList = [];
         });
+       builder .addCase(fetchProductDetails.pending, (state) => {
+        state.isLoading = true;
+      })
+      builder.addCase(fetchProductDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.productDetails = action.payload.data;
+      })
+      builder.addCase(fetchProductDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.productDetails = [];
+      })
     },
 });
 

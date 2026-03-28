@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductFilter from "@/components/shopping-view/Filter";
 import { Button } from "@/components/ui/button";
+import { useSearchParams } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,7 @@ import { ArrowUpDownIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFilteredProducts } from "@/store/shop/index";
 import ShoppingProductTile from "../../components/shopping-view/ProductTile"; // Adjust path if needed
+import ProductDetailsDialog from "@/components/shopping-view/ProductDetails";
 
 const sortOptions = [
   { id: "price-lowtohigh", label: "Price: Low to High" },
@@ -20,22 +22,93 @@ const sortOptions = [
   { id: "title-ztoa", label: "Title: Z to A" },
 ];
 
+function createSearchParamsHelper(filters) {
+  const queryParams = [];
+
+  for (const [key, value] of Object.entries(filters)) {
+    if (Array.isArray(value) && value.length > 0) {
+      const paramValue = value.join(",");
+      queryParams.push(`${key}=${encodeURIComponent(paramValue)}`);
+    }
+  }
+
+  return queryParams.join("&");
+}
+
 const ShoppingListing = () => {
   const dispatch = useDispatch();
   // Get products from Redux
-  const { productList } = useSelector((state) => state.shopProducts);
+  const { productList,productDetails } = useSelector((state) => state.shopProducts);
 
   const [sort, setSort] = useState("price-lowtohigh");
   const [filters, setFilters] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [open, setOpen] = useState(false);
+
+  const categorySearchParam = searchParams.get("category");
 
   useEffect(() => {
    
     dispatch(fetchAllFilteredProducts());
   }, [dispatch, sort, filters]);
 
+ 
+
   const handleFilter = (sectionId, currentOption) => {
-    console.log("Filtering by:", sectionId, currentOption);
+    let cpyFilters = {...filters}
+    const indexOfCurrentSection = Object.keys(cpyFilters).indexOf(sectionId);
+
+    if (indexOfCurrentSection === -1) {
+      cpyFilters = {
+        ...filters,
+        [sectionId]: [currentOption],
+      }
+    } else {
+       const indexOfCurrentOption = cpyFilters[sectionId].indexOf(currentOption);
+
+      if (indexOfCurrentOption === -1) {
+        cpyFilters[sectionId].push(currentOption);
+      } else {
+        cpyFilters[sectionId].splice(indexOfCurrentOption, 1);
+      }
+    }
+        setFilters(cpyFilters);
+    sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
+    
   };
+   useEffect(() => {
+    setSort("price-lowtohigh");
+    setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
+  }, [categorySearchParam]);
+
+    useEffect(() => {
+    if (filters && Object.keys(filters).length > 0) {
+      const createQueryString = createSearchParamsHelper(filters);
+      setSearchParams(new URLSearchParams(createQueryString));
+    }
+  }, [filters, setSearchParams]);
+
+    useEffect(() => {
+    if (filters !== null && sort !== null)
+      dispatch(
+        fetchAllFilteredProducts({ filtersParams: filters, sortParams: sort }),
+      );
+  }, [dispatch, filters, sort]);
+
+
+    function handleGetProductDetails(getCurrentProductId) {
+    dispatch(fetchProductDetails(getCurrentProductId));
+  }
+
+
+    useEffect(() => {
+    if (productDetails) {
+      setOpen(true);
+    }
+  }, [productDetails]);
+
+  console.log(productDetails);
 
   const handleSort = (value) => {
     setSort(value);
@@ -94,6 +167,7 @@ const ShoppingListing = () => {
           )}
         </div>
       </div>
+      <ProductDetailsDialog open={open} setOpen={setOpen} productDetails={productDetails}/>
     </div>
   );
 };
