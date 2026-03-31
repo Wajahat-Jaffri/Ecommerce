@@ -12,6 +12,7 @@ import {
 import { ArrowUpDownIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFilteredProducts } from "@/store/shop/index";
+import { fetchProductDetails } from "@/store/shop/index";
 import ShoppingProductTile from "../../components/shopping-view/ProductTile"; // Adjust path if needed
 import ProductDetailsDialog from "@/components/shopping-view/ProductDetails";
 
@@ -158,6 +159,7 @@ const ShoppingListing = () => {
               <ShoppingProductTile
                 key={productItem._id}
                 product={productItem}
+                handleGetProductDetails={handleGetProductDetails}
               />
             ))
           ) : (

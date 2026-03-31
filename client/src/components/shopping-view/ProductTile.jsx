@@ -5,10 +5,12 @@ import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Badge } from "../ui/badge";
 import { ShoppingCart } from "lucide-react";
 
-function ShoppingProductTile({ product }) {
+function ShoppingProductTile({ product , handleGetProductDetails}) {
   return (
     // Max width set ki hai taake card ek limit se bara na ho, aur padding kam ki hai
-    <Card className="group border border-gray-100 bg-white/50 backdrop-blur-sm rounded-[1.5rem] overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-pink-50/50 w-full max-w-[280px] mx-auto">
+    <Card
+    onClick={() => handleGetProductDetails(product?._id)} 
+    className="group border border-gray-100 bg-white/50 backdrop-blur-sm rounded-[1.5rem] overflow-hidden transition-all duration-500 cursor-pointer hover:shadow-xl hover:shadow-pink-50/50 w-full max-w-[280px] mx-auto">
       
       {/* Image Container: Aspect square aur padding taake contain better lage */}
       <div className="relative aspect-square overflow-hidden bg-white p-2">

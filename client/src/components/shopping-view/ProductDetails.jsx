@@ -15,7 +15,7 @@ function ProductDetailsDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 sm:p-8 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
+      <DialogContent className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 sm:p-8 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw] mt-20">
         {/* Product Image */}
         <div className="relative overflow-hidden rounded-xl border bg-muted/20">
           <img
