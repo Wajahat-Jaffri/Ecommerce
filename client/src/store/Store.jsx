@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth-slice";
-import adminProductsReducer from "./admin/product/index";
-import shopProductsReducer from "./shop/index";
+import adminProductsReducer from "./admin/product";
+import shopProductsReducer from "./shop";
+import sliderReducer from "./slider-slice";
+
 export const store = configureStore({
-    reducer: {
-        auth: authReducer,
+  reducer: {
+    auth: authReducer,
     adminProducts: adminProductsReducer,
-    shopProducts: shopProductsReducer
-    }
-})
+    shopProducts: shopProductsReducer,
+    slider: sliderReducer,
+  },
+});

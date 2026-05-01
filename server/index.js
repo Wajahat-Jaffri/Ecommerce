@@ -9,6 +9,7 @@ dotenv.config();
 import authRoutes from "./routes/auth/auth.routes.js";
 import adminProductRoutes from "./routes/admin/product.routes.js";
 import shopProductRoutes from "./routes/shop/product.routes.js";
+import sliderRoutes from "./routes/slider/slider.routes.js";
 
 const app = express();
 
@@ -16,11 +17,13 @@ const app = express();
 app.use(express.json());
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(cookieParser());
+app.use("/uploads", express.static("uploads"));
 
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin/products", adminProductRoutes);
 app.use("/api/shop/products", shopProductRoutes);
+app.use("/api/slider", sliderRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URL)
