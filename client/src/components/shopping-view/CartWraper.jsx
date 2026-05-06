@@ -1,72 +1,51 @@
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
-import UserCartItemsContent from "./CartItemsWrapper";
-import { useSelector } from "react-redux";
+// ✅ Image ke mutabiq single 'p' wala name
+import UserCartItemsContent from "./CartItemWraper"; 
 
 function UserCartWrapper({ setOpenCartSheet }) {
   const navigate = useNavigate();
-
-  //  Redux se cart data le rahe hain
   const { cartItems } = useSelector((state) => state.cart);
 
- console.log( "cartItems",cartItems);
-  // const items = cartItems?.items || [];
-  const items = cartItems?.items || (Array.isArray(cartItems) ? cartItems : []);
-
-  //  Total calculation (Redux data ke hisaab se)
-  const totalCartAmount =
-    items.length > 0
-      ? items.reduce((sum, currentItem) => {
-          const price =
-            currentItem.salePrice > 0
-              ? currentItem.salePrice
-              : currentItem.price;
-
-          return sum + price * currentItem.quantity;
-        }, 0)
-      : 0;
+  const totalCartAmount = cartItems.reduce((sum, item) => {
+    const price = item.salePrice > 0 ? item.salePrice : item.price;
+    return sum + price * item.quantity;
+  }, 0);
 
   return (
-    <SheetContent className="sm:max-w-md">
-      <SheetHeader>
-        <SheetTitle>Your Cart</SheetTitle>
-      </SheetHeader>
-
-      {/*  Cart Items */}
-      <div className="mt-8 space-y-4">
-        {items.length > 0 ? (
-          items.map((item) => (
-            <UserCartItemsContent
-              key={item.productId}
-              cartItem={item}
-            />
+    <SheetContent className="sm:max-w-md bg-white p-0 flex flex-col h-full">
+      <div className="p-6 border-b">
+        <SheetHeader>
+          <SheetTitle className="text-lg font-black uppercase">Your Bag</SheetTitle>
+        </SheetHeader>
+      </div>
+      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        {cartItems && cartItems.length > 0 ? (
+          cartItems.map((item) => (
+            <UserCartItemsContent key={item.productId} cartItem={item} />
           ))
         ) : (
-          <p className="text-center text-gray-500">
-            Your cart is empty
-          </p>
+          <p className="text-center py-10 text-gray-500 font-bold uppercase text-xs">Empty</p>
         )}
       </div>
-
-      {/*  Total */}
-      <div className="mt-8 space-y-4">
-        <div className="flex justify-between">
-          <span className="font-bold">Total</span>
-          <span className="font-bold">${totalCartAmount}</span>
+      <div className="p-6 border-t bg-gray-50">
+        <div className="flex justify-between items-center mb-6">
+          <span className="font-bold uppercase text-xs">Total</span>
+          <span className="text-lg font-black">${totalCartAmount.toFixed(2)}</span>
         </div>
+        <Button 
+          disabled={cartItems.length === 0}
+          onClick={() => {
+            navigate("/shop/checkout");
+            setOpenCartSheet(false);
+          }}
+          className="w-full bg-black py-6 rounded-xl font-black uppercase text-xs"
+        >
+          Checkout
+        </Button>
       </div>
-
-      {/*  Checkout Button */}
-      <Button
-        onClick={() => {
-          navigate("/shop/checkout");
-          setOpenCartSheet?.(false);
-        }}
-        className="w-full mt-6"
-      >
-        Checkout
-      </Button>
     </SheetContent>
   );
 }
