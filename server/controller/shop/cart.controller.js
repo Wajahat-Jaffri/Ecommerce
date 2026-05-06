@@ -15,20 +15,14 @@ const formatCartItems = (items) =>
 //  Add To Cart
 export const addToCart = async (req, res) => {
   try {
-    const { userId, productId, quantity } = req.body;
+    let { userId, productId, quantity } = req.body;
 
-    if (!userId || !productId || !quantity || quantity < 1) {
+    quantity = Number(quantity) || 1;
+
+    if (!userId || !productId) {
       return res.status(400).json({
         success: false,
-        error: "Missing or invalid required fields",
-      });
-    }
-
-    const product = await Product.findById(productId);
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        error: "Product not found",
+        error: "Missing required fields",
       });
     }
 
@@ -38,26 +32,28 @@ export const addToCart = async (req, res) => {
       cart = new Cart({ userId, items: [] });
     }
 
-    const index = cart.items.findIndex(
-      (item) => item.productId.toString() === productId
+    const existingItem = cart.items.find(
+      (item) => item.productId.toString() === productId.toString()
     );
 
-    if (index > -1) {
-      cart.items[index].quantity += quantity;
+    if (existingItem) {
+      existingItem.quantity += 1; // ✅ always +1 (no duplicate issue)
     } else {
-      cart.items.push({ productId, quantity });
+      cart.items.push({
+        productId,
+        quantity: 1,
+      });
     }
 
     await cart.save();
 
     return res.status(200).json({
       success: true,
-      message: "Item added to cart successfully",
+      message: "Added to cart",
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Failed to add item",
       error: error.message,
     });
   }
@@ -114,7 +110,9 @@ export const fetchCartItems = async (req, res) => {
 //  Update Quantity
 export const updateCartItemQty = async (req, res) => {
   try {
-    const { userId, productId, quantity } = req.body;
+    let { userId, productId, quantity } = req.body;
+
+    quantity = Number(quantity);
 
     if (!userId || !productId || quantity < 1) {
       return res.status(400).json({
@@ -132,20 +130,21 @@ export const updateCartItemQty = async (req, res) => {
       });
     }
 
-    const index = cart.items.findIndex(
-      (item) => item.productId.toString() === productId
+    const item = cart.items.find(
+      (item) => item.productId.toString() === productId.toString()
     );
 
-    if (index === -1) {
+    if (!item) {
       return res.status(404).json({
         success: false,
         error: "Item not found",
       });
     }
 
-    cart.items[index].quantity = quantity;
+    item.quantity = quantity;
 
     await cart.save();
+
     await cart.populate({
       path: "items.productId",
       select: "image title price salePrice",
@@ -153,16 +152,12 @@ export const updateCartItemQty = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Quantity updated",
-      data: {
-        ...cart._doc,
-        items: formatCartItems(cart.items),
-      },
+      message: "Updated",
+      data: formatCartItems(cart.items),
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Failed to update",
       error: error.message,
     });
   }
@@ -180,10 +175,7 @@ export const deleteCartItem = async (req, res) => {
       });
     }
 
-    const cart = await Cart.findOne({ userId }).populate({
-      path: "items.productId",
-      select: "image title price salePrice",
-    });
+    const cart = await Cart.findOne({ userId });
 
     if (!cart) {
       return res.status(404).json({
@@ -192,18 +184,10 @@ export const deleteCartItem = async (req, res) => {
       });
     }
 
-    const initialLength = cart.items.length;
-
+    // ✅ IMPORTANT FIX (NO POPULATE USED HERE)
     cart.items = cart.items.filter(
-      (item) => item.productId._id.toString() !== productId
+      (item) => item.productId.toString() !== productId.toString()
     );
-
-    if (cart.items.length === initialLength) {
-      return res.status(404).json({
-        success: false,
-        error: "Item not in cart",
-      });
-    }
 
     await cart.save();
 
@@ -214,13 +198,12 @@ export const deleteCartItem = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Item removed",
+      message: "Item deleted",
       data: formatCartItems(cart.items),
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Delete failed",
       error: error.message,
     });
   }
