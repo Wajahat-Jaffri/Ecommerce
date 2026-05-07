@@ -17,6 +17,7 @@
 // export default ShoppingLayout;
 import { Outlet } from "react-router-dom";
 import ShoppingHeader from "./Header";
+import ShoppingFooter from "./Footer";
 
 function ShoppingLayout() {
   return (
@@ -26,11 +27,11 @@ function ShoppingLayout() {
 
       <main className="flex flex-col w-full flex-grow">
         {/* Humne yahan margin/padding adjust ki taake header se chipke nahi */}
-        <div className="pt-4">
+        <div className="">
           <Outlet />
         </div>
       </main>
-      
+      <ShoppingFooter />
       {/* Optional: Aap yahan ek clean footer bhi add kar sakte hain */}
     </div>
   );
