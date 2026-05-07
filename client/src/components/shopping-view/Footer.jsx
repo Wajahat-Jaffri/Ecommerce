@@ -1,126 +1,115 @@
 import React from "react";
 import { 
-  Facebook, 
-  Instagram, 
-  Twitter, 
-  Youtube, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  ArrowRight 
+  Facebook, Instagram, Twitter, Youtube, 
+  MapPin, Phone, Mail, ArrowUpRight, 
+  MoveRight, Globe, ShieldCheck 
 } from "lucide-react";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0a0a0a] text-white pt-24 pb-12 px-6">
+    <footer className="relative bg-[#050505] text-white pt-32 pb-12 px-6 overflow-hidden">
+      {/* Background Decorative Element - Abstract Glow */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#be185d]/5 rounded-full blur-[120px] -z-10" />
+      
       <div className="max-w-[1400px] mx-auto">
         
-        {/* Top Section: Brand & Newsletter */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20 border-b border-white/5 pb-20">
-          <div>
-            <h2 className="text-4xl font-black tracking-tighter mb-6 uppercase">
-              J.Store<span className="text-[#be185d]">.</span>
+        {/* TOP SECTION: Massive Brand Identity & Newsletter */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+          <div className="lg:col-span-7">
+            <h2 className="text-7xl md:text-9xl font-black tracking-[ -0.05em] uppercase leading-none mb-10">
+              J.STORE<span className="text-[#be185d] animate-pulse">.</span>
             </h2>
-            <p className="text-gray-400 max-w-sm text-sm leading-relaxed font-medium">
-              Elevating your lifestyle with curated fashion and artisanal craftsmanship. 
-              Join our journey towards sustainable elegance.
-            </p>
-            
-            <div className="flex gap-5 mt-8">
-              {[Instagram, Facebook, Twitter, Youtube].map((Icon, i) => (
-                <a 
-                  key={i} 
-                  href="#" 
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#be185d] hover:border-[#be185d] transition-all duration-300 group"
-                >
-                  <Icon size={18} className="group-hover:scale-110 transition-transform" />
-                </a>
-              ))}
+            <div className="flex flex-wrap gap-8 items-center">
+              <p className="text-gray-500 max-w-sm text-sm font-medium leading-relaxed uppercase tracking-widest">
+                Defining the intersection of <span className="text-white">Art</span> & <span className="text-white">Apparel</span> since 2024.
+              </p>
+              <div className="h-[1px] w-24 bg-white/10 hidden md:block" />
+              <div className="flex gap-4">
+                {[Instagram, Twitter, Facebook].map((Icon, i) => (
+                   <a key={i} href="#" className="p-3 bg-white/5 rounded-full hover:bg-[#be185d] hover:text-white transition-all duration-500 border border-white/5">
+                     <Icon size={18} />
+                   </a>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col justify-center">
-            <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-[#be185d] mb-4">
-              Weekly Digest
-            </h3>
-            <div className="relative max-w-md">
-              <input 
-                type="email" 
-                placeholder="YOUR EMAIL ADDRESS" 
-                className="w-full bg-transparent border-b border-white/20 py-4 text-sm outline-none focus:border-[#be185d] transition-colors placeholder:text-gray-600 font-bold uppercase tracking-tighter"
-              />
-              <button className="absolute right-0 bottom-4 hover:text-[#be185d] transition-colors">
-                <ArrowRight size={20} />
-              </button>
+          <div className="lg:col-span-5 flex flex-col justify-end">
+            <div className="bg-white/5 p-10 rounded-3xl border border-white/10 backdrop-blur-xl">
+              <h3 className="text-xl font-bold mb-2 italic">Insider Access</h3>
+              <p className="text-gray-400 text-xs mb-8 tracking-widest uppercase">Get 15% off your first masterpiece.</p>
+              <div className="group relative">
+                <input 
+                  type="email" 
+                  placeholder="Email Address" 
+                  className="w-full bg-transparent border-b-2 border-white/10 py-4 text-lg outline-none focus:border-[#be185d] transition-all placeholder:text-gray-700"
+                />
+                <button className="absolute right-0 bottom-4 group-hover:translate-x-2 transition-transform duration-300">
+                  <MoveRight className="text-[#be185d]" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Middle Section: Links */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-gray-500">Shop</h4>
-            <ul className="space-y-4 text-sm font-bold tracking-tight text-gray-300">
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">New Arrivals</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Best Sellers</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Summer '24 Edit</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Accessories</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-gray-500">Company</h4>
-            <ul className="space-y-4 text-sm font-bold tracking-tight text-gray-300">
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Our Story</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Sustainability</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Careers</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Terms of Service</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-gray-500">Support</h4>
-            <ul className="space-y-4 text-sm font-bold tracking-tight text-gray-300">
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Order Tracking</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Returns & Exchanges</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Size Guide</li>
-              <li className="hover:text-[#be185d] cursor-pointer transition-colors">Help Center</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-gray-500">Contact</h4>
-            <ul className="space-y-4 text-sm font-bold tracking-tight text-gray-300">
-              <li className="flex items-center gap-3">
-                <MapPin size={16} className="text-[#be185d]" />
-                <span className="text-gray-400">DHA Phase 6, Karachi</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={16} className="text-[#be185d]" />
-                <span className="text-gray-400">+92 300 1234567</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail size={16} className="text-[#be185d]" />
-                <span className="text-gray-400">hello@jstore.com</span>
-              </li>
-            </ul>
-          </div>
+        {/* MIDDLE SECTION: Minimalist Links */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-24 pt-16 border-t border-white/5">
+          {[
+            { title: "Collections", links: ["Men's Elite", "Women's Couture", "Limited Drops", "Archives"] },
+            { title: "Maison", links: ["Our Philosophy", "Craftsmanship", "Sustainability", "Careers"] },
+            { title: "Concierge", links: ["Size Guide", "Shipping Info", "Return Portal", "Gift Cards"] },
+            { title: "Legal", links: ["Privacy Policy", "Terms of Use", "Cookie Settings", "Accessibility"] }
+          ].map((section, idx) => (
+            <div key={idx}>
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-[#be185d]">
+                {section.title}
+              </h4>
+              <ul className="space-y-4">
+                {section.links.map((link, i) => (
+                  <li key={i}>
+                    <a href="#" className="text-sm font-bold text-gray-500 hover:text-white flex items-center group transition-all">
+                      <span className="w-0 group-hover:w-4 h-[1px] bg-[#be185d] mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom Section: Legal */}
-        <div className="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/5 gap-6">
-          <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-            © {currentYear} J.Store Elite. All Rights Reserved.
+        {/* BOTTOM SECTION: The Signature Finish */}
+        <div className="pt-10 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
+              <Globe size={12} className="text-[#be185d]" />
+              Global Shipping Available
+            </div>
+            <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
+              <ShieldCheck size={12} className="text-[#be185d]" />
+              Secure Checkout
+            </div>
+          </div>
+
+          <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.3em]">
+            © {currentYear} Designed by <span className="text-white hover:text-[#be185d] cursor-pointer transition-colors">Wajahat Ali Jaffri</span>
           </p>
-          <div className="flex gap-8 items-center opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-            {/* Payment Icons Placeholder */}
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-3" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-5" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="Paypal" className="h-4" />
+
+          <div className="flex gap-10 opacity-40 hover:opacity-100 transition-opacity duration-700 items-center">
+             <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-3 grayscale invert" alt="Visa" />
+             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-6 grayscale" alt="Mastercard" />
+             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-4 grayscale invert" alt="Paypal" />
           </div>
         </div>
+      </div>
+
+      {/* Aesthetic Side Text */}
+      <div className="absolute right-[-50px] top-1/2 -rotate-90 hidden xl:block">
+        <span className="text-[150px] font-black text-white/[0.02] select-none leading-none">
+          EST. 2024
+        </span>
       </div>
     </footer>
   );
