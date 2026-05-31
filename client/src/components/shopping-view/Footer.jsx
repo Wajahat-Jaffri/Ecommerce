@@ -1,7 +1,8 @@
+
+
 import React from "react";
 import { 
-  Facebook, Instagram, Twitter, Youtube, 
-  MapPin, Phone, Mail, ArrowUpRight, 
+  Facebook, Instagram, Twitter, 
   MoveRight, Globe, ShieldCheck 
 } from "lucide-react";
 
@@ -18,7 +19,7 @@ function Footer() {
         {/* TOP SECTION: Massive Brand Identity & Newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
           <div className="lg:col-span-7">
-            <h2 className="text-7xl md:text-9xl font-black tracking-[ -0.05em] uppercase leading-none mb-10">
+            <h2 className="text-7xl md:text-9xl font-black tracking-[-0.05em] uppercase leading-none mb-10">
               J.STORE<span className="text-[#be185d] animate-pulse">.</span>
             </h2>
             <div className="flex flex-wrap gap-8 items-center">
@@ -54,13 +55,25 @@ function Footer() {
           </div>
         </div>
 
-        {/* MIDDLE SECTION: Minimalist Links */}
+        {/* MIDDLE SECTION: Minimalist Links (Updated based on image_b19168.png) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-24 pt-16 border-t border-white/5">
           {[
-            { title: "Collections", links: ["Men's Elite", "Women's Couture", "Limited Drops", "Archives"] },
-            { title: "Maison", links: ["Our Philosophy", "Craftsmanship", "Sustainability", "Careers"] },
-            { title: "Concierge", links: ["Size Guide", "Shipping Info", "Return Portal", "Gift Cards"] },
-            { title: "Legal", links: ["Privacy Policy", "Terms of Use", "Cookie Settings", "Accessibility"] }
+            { 
+              title: "Category", 
+              links: ["Men", "Women", "Kids", "Accessories", "Footwear"] 
+            },
+            { 
+              title: "Brand", 
+              links: ["Nike", "Adidas", "Puma", "Levi's", "Zara", "H&M"] 
+            },
+            { 
+              title: "Concierge", 
+              links: ["Size Guide", "Shipping Info", "Return Portal", "Gift Cards"] 
+            },
+            { 
+              title: "Legal", 
+              links: ["Privacy Policy", "Terms of Use", "Cookie Settings", "Accessibility"] 
+            }
           ].map((section, idx) => (
             <div key={idx}>
               <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-[#be185d]">

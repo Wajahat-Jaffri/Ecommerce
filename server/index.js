@@ -1,3 +1,5 @@
+
+
 // import express from "express";
 // import mongoose from "mongoose";
 // import cors from "cors";
@@ -6,39 +8,59 @@
 
 // dotenv.config();
 
-// import authRoutes from "./routes/auth/auth.routes.js";
-// import adminProductRoutes from "./routes/admin/product.routes.js";
-// import shopProductRoutes from "./routes/shop/product.routes.js";
-// import sliderRoutes from "./routes/slider/slider.routes.js";
-// import cartRoutes from "./routes/shop/cart.routes.js";
-// import adminOrderRoutes from "./routes/admin/order.routes.js";
-// import shopOrderRoutes from "./routes/shop/order.routes.js";
 // const app = express();
 
-// // middleware
+// // ROUTES
+// import authRoutes from "./routes/auth/auth.routes.js";
+
+// import adminProductRoutes from "./routes/admin/product.routes.js";
+// import adminOrderRoutes from "./routes/admin/order.routes.js";
+
+// import shopProductRoutes from "./routes/shop/product.routes.js";
+// import shopOrderRoutes from "./routes/shop/order.routes.js";
+
+// import sliderRoutes from "./routes/slider/slider.routes.js";
+// import cartRoutes from "./routes/shop/cart.routes.js";
+
+// // MIDDLEWARE
 // app.use(express.json());
-// app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true,
+//   })
+// );
+
 // app.use(cookieParser());
+
 // app.use("/uploads", express.static("uploads"));
 
-// // routes
+// // ROUTES
 // app.use("/api/auth", authRoutes);
+
 // app.use("/api/admin/products", adminProductRoutes);
+// app.use("/api/admin/orders", adminOrderRoutes);
+
 // app.use("/api/shop/products", shopProductRoutes);
-// app.use("/api/slider", sliderRoutes);
+// app.use("/api/shop/orders", shopOrderRoutes);
+
 // app.use("/api/shop/cart", cartRoutes);
-// app.use("/api/admin/orders", adminOrderRouter);
-// app.use("/api/shop/orders", shopOrderRouter);
 
+// app.use("/api/slider", sliderRoutes);
 
-// // MongoDB connection
-// mongoose.connect(process.env.MONGODB_URL)
-//     .then(() => console.log("MongoDB Connected..."))
-//     .catch(err => console.log("Custom Error:", err));
+// // DATABASE
+// mongoose
+//   .connect(process.env.MONGODB_URL)
+//   .then(() => console.log("MongoDB Connected"))
+//   .catch((err) => console.log("MongoDB Error:", err));
 
-// // server
+// // SERVER
 // const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 
 import express from "express";
 import mongoose from "mongoose";
@@ -50,7 +72,8 @@ dotenv.config();
 
 const app = express();
 
-// ROUTES
+// ================= IMPORT ROUTES =================
+
 import authRoutes from "./routes/auth/auth.routes.js";
 
 import adminProductRoutes from "./routes/admin/product.routes.js";
@@ -62,7 +85,11 @@ import shopOrderRoutes from "./routes/shop/order.routes.js";
 import sliderRoutes from "./routes/slider/slider.routes.js";
 import cartRoutes from "./routes/shop/cart.routes.js";
 
-// MIDDLEWARE
+// ✅ CONTACT ROUTE (FIXED PATH)
+import contactRoutes from "./routes/shop/contacts.routes.js";
+
+// ================= MIDDLEWARE =================
+
 app.use(express.json());
 
 app.use(
@@ -76,26 +103,35 @@ app.use(cookieParser());
 
 app.use("/uploads", express.static("uploads"));
 
-// ROUTES
+// ================= ROUTES =================
+
+// AUTH
 app.use("/api/auth", authRoutes);
 
+// ADMIN
 app.use("/api/admin/products", adminProductRoutes);
 app.use("/api/admin/orders", adminOrderRoutes);
 
+// SHOP
 app.use("/api/shop/products", shopProductRoutes);
 app.use("/api/shop/orders", shopOrderRoutes);
-
 app.use("/api/shop/cart", cartRoutes);
 
+// SLIDER
 app.use("/api/slider", sliderRoutes);
 
-// DATABASE
+// ✅ CONTACT API
+app.use("/api/contact", contactRoutes);
+
+// ================= DB =================
+
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("MongoDB Error:", err));
 
-// SERVER
+// ================= SERVER =================
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
