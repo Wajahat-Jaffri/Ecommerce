@@ -21,6 +21,10 @@ import ShoppingListing from "./pages/shopping-view/Listing";
 import ShoppingAccount from "./pages/shopping-view/Account";
 import ShoppingCheckout from "./pages/shopping-view/Checkout";
 
+import TermsAndPolicies from "./pages/shopping-view/Term-policies";
+import TermsOfService from "./pages/shopping-view/TermsOfService";
+import RefundPolicy from "./pages/shopping-view/RefundPolicy";
+
 import NotFound from "./pages/not-found/Index";
 import CheckAuth from "./components/common/CheckAuth";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UnauthPage from "./components/common/CheckAuth";
 import { useEffect } from "react";
 import { checkAuth } from "./store/auth-slice";
+
 
 function App() {
   const { isAuthenticated, isLoading, user } = useSelector((state) => state.auth);
@@ -90,6 +95,9 @@ function App() {
           <Route path="listing" element={<ShoppingListing />} />
           <Route path="account" element={<ShoppingAccount />} />
           <Route path="checkout" element={<ShoppingCheckout />} />
+           <Route path="term-policies" element={<TermsAndPolicies />} />
+           <Route path="terms-service" element={<TermsOfService />} />
+           <Route path="refund-policy" element={<RefundPolicy />} />
         </Route>
 
         {/* Common Routes */}

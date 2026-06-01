@@ -1,6 +1,6 @@
-
-
 import React from "react";
+// react-router-dom se Link component use kiya taake bina refresh ke smooth route change ho
+import { Link } from "react-router-dom"; 
 import { 
   Facebook, Instagram, Twitter, 
   MoveRight, Globe, ShieldCheck 
@@ -8,6 +8,47 @@ import {
 
 function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const footerSections = [
+    { 
+      title: "Category", 
+      links: [
+        { label: "Men", path: "#" },
+        { label: "Women", path: "#" },
+        { label: "Kids", path: "#" },
+        { label: "Accessories", path: "#" },
+        { label: "Footwear", path: "#" }
+      ] 
+    },
+    { 
+      title: "Brand", 
+      links: [
+        { label: "Nike", path: "#" },
+        { label: "Adidas", path: "#" },
+        { label: "Puma", path: "#" },
+        { label: "Levi's", path: "#" },
+        { label: "Zara", path: "#" },
+        { label: "H&M", path: "#" }
+      ] 
+    },
+    { 
+      title: "Concierge", 
+      links: [
+        { label: "Size Guide", path: "#" },
+        { label: "Shipping Info", path: "#" },
+        { label: "Return Portal", path: "/shop/refund-policy" }, // Yahan bhi proper route update kar diya
+        { label: "Gift Cards", path: "#" }
+      ] 
+    },
+    { 
+      title: "Legal", 
+      links: [
+        { label: "Terms & Policies", path: "/shop/term-policies" }, 
+        { label: "Terms of Service", path: "/shop/terms-service" },  
+        { label: "Return Policy", path: "/shop/refund-policy" }
+      ] 
+    }
+  ];
 
   return (
     <footer className="relative bg-[#050505] text-white pt-32 pb-12 px-6 overflow-hidden">
@@ -55,26 +96,9 @@ function Footer() {
           </div>
         </div>
 
-        {/* MIDDLE SECTION: Minimalist Links (Updated based on image_b19168.png) */}
+        {/* MIDDLE SECTION: Minimalist Links */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-24 pt-16 border-t border-white/5">
-          {[
-            { 
-              title: "Category", 
-              links: ["Men", "Women", "Kids", "Accessories", "Footwear"] 
-            },
-            { 
-              title: "Brand", 
-              links: ["Nike", "Adidas", "Puma", "Levi's", "Zara", "H&M"] 
-            },
-            { 
-              title: "Concierge", 
-              links: ["Size Guide", "Shipping Info", "Return Portal", "Gift Cards"] 
-            },
-            { 
-              title: "Legal", 
-              links: ["Privacy Policy", "Terms of Use", "Cookie Settings", "Accessibility"] 
-            }
-          ].map((section, idx) => (
+          {footerSections.map((section, idx) => (
             <div key={idx}>
               <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-[#be185d]">
                 {section.title}
@@ -82,10 +106,13 @@ function Footer() {
               <ul className="space-y-4">
                 {section.links.map((link, i) => (
                   <li key={i}>
-                    <a href="#" className="text-sm font-bold text-gray-500 hover:text-white flex items-center group transition-all">
+                    <Link 
+                      to={link.path} 
+                      className="text-sm font-bold text-gray-500 hover:text-white flex items-center group transition-all"
+                    >
                       <span className="w-0 group-hover:w-4 h-[1px] bg-[#be185d] mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -118,9 +145,9 @@ function Footer() {
         </div>
       </div>
 
-      {/* Aesthetic Side Text */}
-      <div className="absolute right-[-50px] top-1/2 -rotate-90 hidden xl:block">
-        <span className="text-[150px] font-black text-white/[0.02] select-none leading-none">
+      {/* --- FIXED: Added pointer-events-none so it doesn't block link hover state --- */}
+      <div className="absolute right-[-50px] top-1/2 -rotate-90 hidden xl:block pointer-events-none select-none">
+        <span className="text-[150px] font-black text-white/[0.02] leading-none">
           EST. 2024
         </span>
       </div>
