@@ -1,7 +1,10 @@
+
+
+
 // import axios from "axios";
 // import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+// const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // const initialState = {
 //   orders: [],
@@ -18,7 +21,6 @@
 //         `${API_BASE_URL}/api/shop/orders/create`,
 //         formData
 //       );
-
 //       return response.data;
 //     } catch (error) {
 //       return rejectWithValue(
@@ -56,7 +58,6 @@
 //         `${API_BASE_URL}/api/admin/orders/status/${orderId}`,
 //         { orderStatus }
 //       );
-
 //       return response.data;
 //     } catch (error) {
 //       return rejectWithValue(
@@ -102,8 +103,7 @@
 //       .addCase(fetchAdminOrders.rejected, (state, action) => {
 //         state.loading = false;
 //         state.orders = [];
-//         state.error =
-//           action.payload?.message || "Failed to fetch admin orders.";
+//         state.error = action.payload?.message || "Failed to fetch admin orders.";
 //       })
 //       .addCase(updateAdminOrderStatus.pending, (state) => {
 //         state.error = null;
@@ -117,8 +117,7 @@
 //         );
 //       })
 //       .addCase(updateAdminOrderStatus.rejected, (state, action) => {
-//         state.error =
-//           action.payload?.message || "Failed to update order status.";
+//         state.error = action.payload?.message || "Failed to update order status.";
 //       });
 //   },
 // });
@@ -126,11 +125,12 @@
 // export const { clearOrdersError } = orderSlice.actions;
 // export default orderSlice.reducer;
 
-
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://ecommerce-backend-iota-ashy.vercel.app";
 
 const initialState = {
   orders: [],
@@ -163,7 +163,9 @@ export const fetchAdminOrders = createAsyncThunk(
   "orders/fetchAdminOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/admin/orders/get`);
+      const response = await axios.get(
+        `${API_BASE_URL}/api/admin/orders/get`
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -229,7 +231,8 @@ const orderSlice = createSlice({
       .addCase(fetchAdminOrders.rejected, (state, action) => {
         state.loading = false;
         state.orders = [];
-        state.error = action.payload?.message || "Failed to fetch admin orders.";
+        state.error =
+          action.payload?.message || "Failed to fetch admin orders.";
       })
       .addCase(updateAdminOrderStatus.pending, (state) => {
         state.error = null;
@@ -243,7 +246,8 @@ const orderSlice = createSlice({
         );
       })
       .addCase(updateAdminOrderStatus.rejected, (state, action) => {
-        state.error = action.payload?.message || "Failed to update order status.";
+        state.error =
+          action.payload?.message || "Failed to update order status.";
       });
   },
 });
