@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./auth-slice/Index.jsx";       // 👈 Capital 'I' (jaisa image mein hai)
+import authReducer from "./auth-slice/index.jsx";       // 👈 Capital 'I' (jaisa image mein hai)
 import adminProductsReducer from "./admin/product/index.jsx"; // 👈 Small 'i'
 import shopProductsReducer from "./shop/index.jsx";       // 👈 Small 'i'
 import sliderReducer from "./slider-slice/index.jsx";   // 👈 Small 'i' (image ke mutabiq)
