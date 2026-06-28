@@ -143,7 +143,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import UnauthPage from "./components/common/CheckAuth";
 import { useEffect } from "react";
-import { checkAuth } from "./store/auth-slice/Index"; // 👈 Store fix ke mutabiq Index add kiya
+import { checkAuth } from "./store/auth-slice/index"; // 👈 Store fix ke mutabiq Index add kiya
 
 
 function App() {
