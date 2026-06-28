@@ -95,15 +95,7 @@ import sliderRoutes from "./routes/slider/slider.routes.js";
 import cartRoutes from "./routes/shop/cart.routes.js";
 import contactRoutes from "./routes/shop/contacts.routes.js";
 
-app.get("/", (req, res) => {
-  res.send("Backend is running");
-});
-app.get("/test", (req, res) => {
-  res.json({
-    success: true,
-    message: "API Working",
-  });
-});
+
 
 app.use(express.json());
 
