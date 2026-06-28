@@ -1,6 +1,3 @@
-
-
-
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -15,7 +12,7 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async (formData) => {
     const response = await axios.post(
-      "https://ecommerce-backend-iota-ashy.vercel.app/api/auth/register",
+      "https://ecommerce-kappa-umber-40.vercel.app/api/auth/register",
       formData,
       {
         withCredentials: true,
@@ -28,7 +25,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk("auth/login", async (formData) => {
   const response = await axios.post(
-    "https://ecommerce-backend-iota-ashy.vercel.app/api/auth/login",
+    "https://ecommerce-kappa-umber-40.vercel.app/api/auth/login",
     formData,
     {
       withCredentials: true,
@@ -38,11 +35,10 @@ export const loginUser = createAsyncThunk("auth/login", async (formData) => {
   return response.data;
 });
 
-
 export const logoutUser = createAsyncThunk("auth/logout", async () => {
   const response = await axios.post(
-    "https://ecommerce-backend-iota-ashy.vercel.app/api/auth/logout",
-  
+    "https://ecommerce-kappa-umber-40.vercel.app/api/auth/logout",
+
     {
       withCredentials: true,
     },
@@ -50,11 +46,10 @@ export const logoutUser = createAsyncThunk("auth/logout", async () => {
 
   return response.data;
 });
-
 
 export const checkAuth = createAsyncThunk("auth/check-auth", async () => {
   const response = await axios.get(
-    "https://ecommerce-backend-iota-ashy.vercel.app/api/auth/check-auth",
+    "https://ecommerce-kappa-umber-40.vercel.app/api/auth/check-auth",
     {
       withCredentials: true,
     },
@@ -62,6 +57,7 @@ export const checkAuth = createAsyncThunk("auth/check-auth", async () => {
 
   return response.data;
 });
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -96,36 +92,32 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
       })
-     .addCase(logoutUser.pending, (state) => {
-  state.isLoading = true;
-})
-.addCase(logoutUser.fulfilled, (state) => {
-  state.isLoading = false;
-  state.isAuthenticated = false;
-  state.user = null;
-})
-.addCase(logoutUser.rejected, (state) => {
-  state.isLoading = false;
-})
+      .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(logoutUser.rejected, (state) => {
+        state.isLoading = false;
+      })
       .addCase(checkAuth.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuthenticated = !!action.payload?.success;  
+        state.isAuthenticated = !!action.payload?.success;
         state.user = action.payload?.user ?? null;
       })
       .addCase(checkAuth.rejected, (state) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;
-      })
-      
-      ;
+      });
   },
 });
 
 export const { setUser } = authSlice.actions;
 export default authSlice.reducer;
-
-
