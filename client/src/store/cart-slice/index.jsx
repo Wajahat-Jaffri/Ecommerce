@@ -10,7 +10,7 @@ const initialState = {
   isLoading: false,
 };
 
-// 🔹 FETCH CART
+// FETCH CART
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async (userId) => {
@@ -21,7 +21,7 @@ export const fetchCartItems = createAsyncThunk(
   }
 );
 
-// 🔹 ADD TO CART
+// ADD TO CART
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ userId, productId, quantity }) => {
@@ -33,7 +33,7 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-// 🔹 UPDATE QUANTITY
+//  UPDATE QUANTITY
 export const updateCartQuantity = createAsyncThunk(
   "cart/updateCartQuantity",
   async ({ userId, productId, quantity }) => {
@@ -45,7 +45,7 @@ export const updateCartQuantity = createAsyncThunk(
   }
 );
 
-// 🔹 DELETE ITEM
+// DELETE ITEM
 export const deleteCartItem = createAsyncThunk(
   "cart/deleteCartItem",
   async ({ userId, productId }) => {
@@ -64,7 +64,7 @@ const shoppingCartSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // ✅ FETCH (MAIN SOURCE OF TRUTH)
+      //  FETCH (MAIN SOURCE OF TRUTH)
       .addCase(fetchCartItems.pending, (state) => {
         state.isLoading = true;
       })
@@ -76,18 +76,18 @@ const shoppingCartSlice = createSlice({
         state.isLoading = false;
       })
 
-      // ❌ ADD → state directly update mat karo
+      //  ADD → state directly update mat karo
       .addCase(addToCart.fulfilled, (state) => {
         state.isLoading = false;
       })
 
-      // ✅ UPDATE
+      //  UPDATE
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         state.isLoading = false;
         state.cartItems = action.payload?.data || [];
       })
 
-      // ✅ DELETE
+      //  DELETE
       .addCase(deleteCartItem.fulfilled, (state, action) => {
         state.isLoading = false;
         state.cartItems = action.payload?.data || [];

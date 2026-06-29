@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./auth-slice/index.jsx";       // 👈 Capital 'I' (jaisa image mein hai)
-import adminProductsReducer from "./admin/product/index.jsx"; // 👈 Small 'i'
-import shopProductsReducer from "./shop/index.jsx";       // 👈 Small 'i'
-import sliderReducer from "./slider-slice/index.jsx";   // 👈 Small 'i' (image ke mutabiq)
-import cartReducer from "./cart-slice/index.jsx";       // 👈 Small 'i'
-import orderReducer from "./order-slice/index.jsx";     // 👈 Small 'i'
+import authReducer from "./auth-slice/index.jsx";       
+import adminProductsReducer from "./admin/product/index.jsx"; 
+import shopProductsReducer from "./shop/index.jsx";       
+import sliderReducer from "./slider-slice/index.jsx";   
+import cartReducer from "./cart-slice/index.jsx";       
+import orderReducer from "./order-slice/index.jsx";     
 
 export const store = configureStore({
   reducer: {
